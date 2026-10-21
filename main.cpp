@@ -78,7 +78,7 @@ int main() {
         currKeyShiftIndex = 0;
         for (int textIndex = 0; textIndex < plaintext.size(); textIndex++) {
             cout << "FOR EVERY TEXT INDEX: " << endl;
-            for (int textLetterIndex = 0; textLetterIndex < plaintext.size(); textLetterIndex++) {
+            for (int textLetterIndex = 0; textLetterIndex < plaintext.at(textIndex).size(); textLetterIndex++) {
                 cout << "FOR EVERY TEXT LETTER INDEX: " << endl;
                 if (isalpha(plaintext.at(textIndex).at(textLetterIndex))) {
                     cout << "IF LETTER IS ALPHA" << endl;
@@ -93,6 +93,7 @@ int main() {
                         decryptedText.at(textIndex).at(textLetterIndex) = plaintext.at(textIndex).at(textLetterIndex) + keyShifts.at(currKeyShiftIndex);
                     }
                 } else {
+                    cout << "IF LETTER ISN'T ALPHA" << endl;
                     decryptedText.at(textIndex).at(textLetterIndex) = plaintext.at(textIndex).at(textLetterIndex);
                 }
                 cout << "DONE WITH LETTER: INCREMENT KEY" << endl;
@@ -106,6 +107,11 @@ int main() {
         cout << endl;
     }
 
+    for (int i = 0; i < decryptedText.size(); i++) {
+        for (int j = 0; j < decryptedText.at(i).size(); j++) {
+            cout << j << " ";
+        }
+    }
 
     return 0;
 }
