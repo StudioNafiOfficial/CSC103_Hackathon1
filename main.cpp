@@ -33,13 +33,13 @@ int main() {
 
     string textFilename = "7.txt";
     fstream textFS;
-    vector<string> plaintext;
+    string plaintext;
     textFS.open(textFilename);
     if (textFS.is_open()) {
         while (!textFS.eof() && textFS.good()) {
             if (!textFS.fail()) {
                 textFS >> input;
-                plaintext.push_back(input);
+                plaintext += input;
             }
         }
         if (!textFS.eof()) {
@@ -59,58 +59,82 @@ int main() {
     *   3) Output the correct original (decrypted) English plaintext
     *   4) Output a description of the context of this plaintext - where is this text from, and what does it mean? what does your team think of this text?
     */
-    
-    vector<string> decryptedText = plaintext;
-    vector<int> keyShifts;
-    int currKeyShiftIndex;
-    cout << "STARTING MAIN LOOP" << endl;
-    for (int keyIndex = 0; keyIndex < keys.size(); keyIndex++) {
-        cout << "FOR EVERY KEY INDEX: " << endl;
-        for (int keyLetterIndex = 0; keyLetterIndex < keys.at(keyIndex).size(); keyLetterIndex++) {
-            cout << "FOR EVERY KEY LETTER INDEX: " << endl;
-            if (isupper(keys.at(keyIndex).at(keyLetterIndex))) {
-                keyShifts.push_back(-1 * int(keys.at(keyIndex).at(keyLetterIndex)) - 'A' + 1);
-            } else {
-                keyShifts.push_back(-1 * int(keys.at(keyIndex).at(keyLetterIndex)) - 'a' + 1);
-            }
+
+    string text1 = plaintext;
+    string ciphered = "";
+    string key = "";
+    int consonants = 0;
+    char c;
+
+    // for (unsigned int i = 0; i < plaintext.size(); i++) {
+    //     if (!isspace(plaintext.at(i))) {
+    //         text1 += plaintext.at(i);
+    //         cout << plaintext.at(i) << endl;
+    //     }
+    // }
+
+    for (int i = 0; i < keys.size(); i++) {
+        for (int j = 0; j < text1.size(); j++) {
+            key += keys.at(i).at(j % keys.at(i).size());
         }
-        cout << "CALCULATED ALL KEYS!" << endl;
-        currKeyShiftIndex = 0;
-        for (int textIndex = 0; textIndex < plaintext.size(); textIndex++) {
-            cout << "FOR EVERY TEXT INDEX: " << endl;
-            for (int textLetterIndex = 0; textLetterIndex < plaintext.at(textIndex).size(); textLetterIndex++) {
-                cout << "FOR EVERY TEXT LETTER INDEX: " << endl;
-                if (isalpha(plaintext.at(textIndex).at(textLetterIndex))) {
-                    cout << "IF LETTER IS ALPHA" << endl;
-                    if (!isalpha(plaintext.at(textIndex).at(textLetterIndex)) + keyShifts.at(currKeyShiftIndex)) {
-                        cout << "IF RESULT ISN'T ALPHA" << endl;
-                        if (islower(plaintext.at(textIndex).at(textLetterIndex))) {
-                            decryptedText.at(textIndex).at(textLetterIndex) = (plaintext.at(textIndex).at(textLetterIndex) - 'a' + keyShifts.at(currKeyShiftIndex)) % 26 + 'a';
-                        } else {
-                            decryptedText.at(textIndex).at(textLetterIndex) = (plaintext.at(textIndex).at(textLetterIndex) - 'A' + keyShifts.at(currKeyShiftIndex)) % 26 + 'A';
-                        }
-                    } else {
-                        decryptedText.at(textIndex).at(textLetterIndex) = plaintext.at(textIndex).at(textLetterIndex) + keyShifts.at(currKeyShiftIndex);
-                    }
-                } else {
-                    cout << "IF LETTER ISN'T ALPHA" << endl;
-                    decryptedText.at(textIndex).at(textLetterIndex) = plaintext.at(textIndex).at(textLetterIndex);
+
+        for (int j = 0; j < text1.size(); j++) {
+            ciphered += (((text1.at(j) - 'A') - (toupper(key.at(j)) - 'A') + 26) % 26) + 'A';
+            cout << ciphered.at(j);
+
+            c = ciphered.at(j);
+            if ((c != 'A') && (c != 'E') && (c != 'I') && (c != 'O') && (c != 'U') && (c != 'Y')) {
+                consonants++;
+                if (consonants > 4) {
+                    cout << "rand letters, abort key " << i << endl;
+                    key = "";
+                    ciphered = "";
+                    consonants = 0;
+                    break;
                 }
-                cout << "DONE WITH LETTER: INCREMENT KEY" << endl;
-                currKeyShiftIndex++;
-                currKeyShiftIndex = currKeyShiftIndex % keyShifts.size();
+            } else {
+                consonants = 0;
             }
-            currKeyShiftIndex++;
-            currKeyShiftIndex = currKeyShiftIndex % keyShifts.size();
         }
-        
-        cout << endl;
+
+        if (ciphered.size() == text1.size()) {
+            break;
+        }
+    }
+    
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    
+
+    vector<int> decryptedLetterFrequencies (27, 0);
+    vector<int> encryptedFrequencies (27, 0);
+
+    cout << "DECRYPTED: " << endl;
+    for (int i = 0; i < ciphered.size(); i++) {
+        decryptedLetterFrequencies.at(ciphered.at(i) - 'A' + 1) += 1;
     }
 
-    for (int i = 0; i < decryptedText.size(); i++) {
-        for (int j = 0; j < decryptedText.at(i).size(); j++) {
-            cout << j << " ";
-        }
+    for (int i = 1; i < decryptedLetterFrequencies.size(); i++) {
+        cout << (char) ('A' + (i - 1)) << "'s: " << decryptedLetterFrequencies.at(i) << " | ";
+    }
+
+    cout << endl << "ENCRYPTED: " << endl;
+    for (int i = 0; i < plaintext.size(); i++) {
+        encryptedFrequencies.at(plaintext.at(i) - 'A' + 1) += 1;
+    }
+
+    for (int i = 1; i < encryptedFrequencies.size(); i++) {
+        cout << (char) ('A' + (i - 1)) << "'s: " << encryptedFrequencies.at(i) << " | ";
+    }
+
+    cout << endl;
+    cout << endl;
+
+    cout << "DECRYPTED TEXT: " << endl << endl;
+    for (int i = 0; i < ciphered.size(); i++) {
+        cout << ciphered.at(i);
     }
 
     return 0;
