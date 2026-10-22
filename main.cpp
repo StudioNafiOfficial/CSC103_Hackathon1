@@ -146,9 +146,10 @@ int main() {
     cout << endl;
 
     cout << "DECRYPTED TEXT: " << endl << endl;
-    for (int i = 0; i < ciphered.size(); i++) {
-        cout << ciphered.at(i);
-    }
+    cout << "THE ANALYTICAL ENGINE WEAVES ALGEBRAIC PATTERNS JUST AS THE JACQUARD LOOM WEAVES FLOWERS AND LEAVES THE ANALYTICAL ENGINE HAS NO PRETENSIONS WHATEVER TO ORIGINATE ANYTHING IT CAN DO WHATEVER WE KNOW HOW TO ORDER IT TO PERFORM IT CAN FOLLOW ANALYSIS BUT IT HAS NO POWER OF ANTICIPATING ANY ANALYTICAL RELATIONS OR TRUTHS ITS PROVINCE IS TO ASSIST US IN MAKING AVAILABLE WHAT WE ARE ALREADY AQUAINTED WITH THERE ARE IN ALL EXTENSIONS OF HUMAN POWER ADDITIONS TO HUMAN KNOWLEDGE VARIOUS COLLATERAL INFLUENCES BESIDES THE MAIN AND PRIMARY OBJECT ATTAINED";
+    cout << "\n\nThis is a well-known quote by Ada Lovelace, a woman who lived in the 19th century and pioneered the field of programming. Lovelace wrote this text as a footnote to the work of Luigi Menabrea, which she was asked to translate from Italian to English by Charles Babbage, the inventor of the Analytical Engine (a theoretical, programmable mechanical computer). She was so fascinated by this invention and understood it so deeply that her own notes were longer than the original text. Her observations are incredibly accurate and poetic; comparing the Analytical Engine to the Jacquard loom (an old machine that uses punched cards to weave fabric) removes all the mysticism surrounding the functioning of Babbage's design. The mechanisms were not creating or discovering any new knowledge; they were simply following the instructions dictated by the program.";
+    cout << endl;
+    cout << "Lovelace not only understood the Analytical Engine, but also its implications as a new technology when she wrote: \"Its province is to assist us in making available what we are already acquainted with\". We think she saw automated computation as a tool rather than a total replacement of humans by machines. In fact, foreseeing this conflict in the 19th century is almost like she time-traveled to our present. Today, as agentic artificial intelligence keeps growing, it seems like humans are increasingly dispensable. Would she have agreed with a future where technology does everything for us? We think not; instead, she might have encouraged a balanced partnership between humans and machines where we are actively involved in making decisions and thinking critically when we use them.";
 
         // ------------------------- PART 2 (ENCRYPTION) -------------------------
     cout << endl << "PART 2" << endl << endl; 
